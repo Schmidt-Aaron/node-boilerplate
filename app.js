@@ -23,6 +23,11 @@ app.use(express.static('public'));
 
 //add other middleware here...
 //...
+// app.use(session({
+//     secret: 'foo',
+//     store: new MongoStore(options)
+// }));
+
 
 //set routes
 app.use('/', routes);
