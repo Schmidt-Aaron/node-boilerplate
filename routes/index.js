@@ -7,4 +7,8 @@ router.get('/', (req, res) => {
     res.send('it is working');
 });
 
+router.get('/login', (res, req) => {
+    res.send('welcome to the login page');
+});
+
 module.exports = router;
