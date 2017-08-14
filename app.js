@@ -22,7 +22,8 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 //add other middleware here...
-//...
+app.use(bodyParser.json());
+
 // app.use(session({
 //     secret: 'foo',
 //     store: new MongoStore(options)
