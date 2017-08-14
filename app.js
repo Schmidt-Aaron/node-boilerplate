@@ -5,6 +5,8 @@ const MongoStore = require('connect-mongo')(session);
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 const passport = require('passport');
 
 
@@ -21,14 +23,22 @@ app.set('view engine', 'pug');
 //set up static file access from the public directory
 app.use(express.static('public'));
 
-//add other middleware here...
+//middleware goes here...
+//read cookies for auth
+app.use(cookieParser()); 
+
+//parse incoming req.body 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(session({
-//     secret: 'foo',
-//     store: new MongoStore(options)
-// }));
-
+// set up passport
+app.use(session({
+    secret: 'foo',  //change this in deployment
+    store: new MongoStore(options)
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 //set routes
 app.use('/', routes);
